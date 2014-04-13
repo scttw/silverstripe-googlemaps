@@ -14,12 +14,7 @@ class GoogleMapController extends Extension {
             && $this->owner->ShowMap
             && !$this->owner->StaticMap
         ) {
-            $config = SiteConfig::current_site_config();
-            $key = ($config->APIKey) ? "&key={$config->APIKey}" : '';
-            
-            Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
-            Requirements::javascript("http://maps.googleapis.com/maps/api/js?sensor=false" . $key);
-            Requirements::javascript('googlemaps/javascript/gmap3.min.js');
+
         }
     }
     
@@ -38,7 +33,12 @@ class GoogleMapController extends Extension {
                     'Longitude'     => ($map->Longitude) ? $map->Longitude : 'false',
                     'Zoom'          => $map->ZoomLevel
                 );
+            $config = SiteConfig::current_site_config();
+            $key = ($config->APIKey) ? "&key={$config->APIKey}" : '';
             
+            //Requirements::javascript(THIRDPARTY_DIR . '/jquery/jquery.js');
+            Requirements::javascript("http://maps.googleapis.com/maps/api/js?sensor=false" . $key);
+            Requirements::javascript('googlemaps/javascript/gmap3.min.js');            
                 Requirements::javascriptTemplate(
                     'googlemaps/javascript/GoogleMap.js',
                     $vars
